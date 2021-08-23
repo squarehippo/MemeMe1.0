@@ -62,5 +62,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>MemeMe would like to use your camera to add meme photos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>MemeMe would like to use photos from your albutm to create memes.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>MemeMe would like to save your meme to your photo album.</string>
 </dict>
 </plist>
