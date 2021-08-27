@@ -12,6 +12,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: - Varibles
 
+    
+    @IBOutlet weak var imageViewContainer: UIView!
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var upperText: UITextField!
@@ -46,7 +48,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         configureTextField()
         view.sendSubviewToBack(coverImage)
-        view.sendSubviewToBack(imagePickerView)
+        view.sendSubviewToBack(imageViewContainer)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
