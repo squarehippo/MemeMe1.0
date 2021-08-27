@@ -5,9 +5,10 @@
 //  Created by Brian Wilson on 8/21/21.
 //
 
+import Foundation
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIToolbarDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIToolbarDelegate, FontProtocol {
     
     // MARK: - Varibles
 
@@ -17,11 +18,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var lowerText: UITextField!
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var toolBar: UIToolbar!
+    @IBOutlet weak var activityButton: UIBarButtonItem! {
+        didSet {
+            activityButton.isEnabled = false
+        }
+    }
+    @IBOutlet weak var coverImage: UIImageView!
     
     var shouldMoveViewForTextField = false
     
-    let memeTextAttributes: [NSAttributedString.Key : Any] = [
-        NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-CondensedBlack", size: 30)!,
+    var memeTextAttributes: [NSMutableAttributedString.Key : Any] = [
+        NSAttributedString.Key.font : UIFont(name: "Impact", size: 30)!,
         NSAttributedString.Key.foregroundColor : UIColor.white,
         NSAttributedString.Key.strokeColor : UIColor.black,
         NSAttributedString.Key.strokeWidth : -2.0
@@ -34,11 +41,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         upperText.delegate = self
         lowerText.delegate = self
         
+        upperText.text = "Welcome to MemeMe"
+        lowerText.text = "Dont get any funny ideas!"
         
         configureTextField()
+        view.sendSubviewToBack(coverImage)
+        view.sendSubviewToBack(imagePickerView)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+//        for family in UIFont.familyNames {
+//
+//            let sName: String = family as String
+//            print("family: \(sName)")
+//                    
+//            for name in UIFont.fontNames(forFamilyName: sName) {
+//                print("name: \(name as String)")
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +91,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
             imagePickerView.image = image
+            activityButton.isEnabled = true
+            coverImage.isHidden = true
+            upperText.text = "click to edit"
+            lowerText.text = "click to edit"
         }
         dismiss(animated: true, completion: nil)
     }
@@ -77,6 +102,37 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+    
+//    @IBAction func scaleImage(_ sender: UIPinchGestureRecognizer) {
+//        imagePickerView.image.transform = CGAffineTransform(scaleX: sender.scale, y: sender.scale)
+//    }
+    
+    @IBAction func handlePinch(_ gesture: UIPinchGestureRecognizer) {
+        guard let gestureView = gesture.view else {
+          return
+        }
+
+        gestureView.transform = gestureView.transform.scaledBy(
+          x: gesture.scale,
+          y: gesture.scale
+        )
+        gesture.scale = 1
+    }
+    
+    @IBAction func handlePan(_ gesture: UIPanGestureRecognizer) {
+      let translation = gesture.translation(in: view)
+        guard let gestureView = gesture.view else {
+        return
+      }
+
+      gestureView.center = CGPoint(
+        x: gestureView.center.x + translation.x,
+        y: gestureView.center.y + translation.y
+      )
+      
+      gesture.setTranslation(.zero, in: view)
+    }
+    
     
     //MARK: - Textfield Methods
     
@@ -89,9 +145,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         lowerText.backgroundColor = .clear
         upperText.backgroundColor = .clear
-        
-        upperText.text = "upper"
-        lowerText.text = "lower"
         
         upperText.borderStyle = .none
         lowerText.borderStyle = .none
@@ -176,11 +229,38 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func shareButton(_ sender: UIBarButtonItem) {
         let memedImage = [generateMemedImage()]
-        let ac = UIActivityViewController(activityItems: memedImage, applicationActivities: nil)
-        present(ac, animated: true)
+        let activityViewController = UIActivityViewController(activityItems: memedImage, applicationActivities: nil)
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if !completed {
+                return
+            }
+            self.save()
+        }
+        present(activityViewController, animated: true)
     }
     
+    // MARK: - Font Methods
+    
+    @IBAction func fontButton(_ sender: UIBarButtonItem) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyBoard.instantiateViewController(withIdentifier: "fontTableID") as? FontTableViewController else {
+            return
+        }
+        vc.delegate = self
+        vc.modalPresentationStyle = .popover
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func getFont(font: String) {
+        print("This font =", font)
+        memeTextAttributes = [
+            NSAttributedString.Key.font : UIFont(name: font, size: 30)!,
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+            NSAttributedString.Key.strokeColor : UIColor.black,
+            NSAttributedString.Key.strokeWidth : -2.0
+        ]
+        configureTextField()
+    }
+    
+    
 }
-
-
-

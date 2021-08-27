@@ -68,5 +68,15 @@
 	<string>MemeMe would like to use photos from your albutm to create memes.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>MemeMe would like to save your meme to your photo album.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Impact.ttf</string>
+		<string>AmericanTypewriter-CondensedBold</string>
+		<string>Arial-BoldMT</string>
+		<string>AvenirNext-Bold</string>
+		<string>ChalkboardSE-Bold</string>
+		<string>Futura-Bold</string>
+		<string>HoeflerText-Black</string>
+	</array>
 </dict>
 </plist>

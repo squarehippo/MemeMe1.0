@@ -14,6 +14,13 @@
 		42465E3126D1CFDD006FDF0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42465E3026D1CFDD006FDF0D /* Assets.xcassets */; };
 		42465E3426D1CFDD006FDF0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42465E3226D1CFDD006FDF0D /* LaunchScreen.storyboard */; };
 		42465E3C26D2E9B5006FDF0D /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42465E3B26D2E9B5006FDF0D /* Meme.swift */; };
+		42465E3E26D3F9E1006FDF0D /* Impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42465E3D26D3F9E1006FDF0D /* Impact.ttf */; };
+		42CEDA0A26D92E4000FD3BDC /* FontTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CEDA0926D92E4000FD3BDC /* FontTableViewController.swift */; };
+		42CEDA0C26D94FD600FD3BDC /* AmericanTypewriter.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 42CEDA0B26D94FD600FD3BDC /* AmericanTypewriter.ttc */; };
+		42CEDA0E26D94FEE00FD3BDC /* Arial Narrow Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CEDA0D26D94FEE00FD3BDC /* Arial Narrow Bold.ttf */; };
+		42CEDA1026D9501200FD3BDC /* Chalkboard.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 42CEDA0F26D9501200FD3BDC /* Chalkboard.ttc */; };
+		42CEDA1226D9501D00FD3BDC /* Futura.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 42CEDA1126D9501D00FD3BDC /* Futura.ttc */; };
+		42CEDA1426D9503000FD3BDC /* Hoefler Text.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 42CEDA1326D9503000FD3BDC /* Hoefler Text.ttc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +33,13 @@
 		42465E3326D1CFDD006FDF0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		42465E3526D1CFDD006FDF0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42465E3B26D2E9B5006FDF0D /* Meme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
+		42465E3D26D3F9E1006FDF0D /* Impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact.ttf; sourceTree = "<group>"; };
+		42CEDA0926D92E4000FD3BDC /* FontTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontTableViewController.swift; sourceTree = "<group>"; };
+		42CEDA0B26D94FD600FD3BDC /* AmericanTypewriter.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = AmericanTypewriter.ttc; sourceTree = "<group>"; };
+		42CEDA0D26D94FEE00FD3BDC /* Arial Narrow Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Arial Narrow Bold.ttf"; sourceTree = "<group>"; };
+		42CEDA0F26D9501200FD3BDC /* Chalkboard.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chalkboard.ttc; sourceTree = "<group>"; };
+		42CEDA1126D9501D00FD3BDC /* Futura.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Futura.ttc; sourceTree = "<group>"; };
+		42CEDA1326D9503000FD3BDC /* Hoefler Text.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hoefler Text.ttc"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,13 +75,28 @@
 				42465E2726D1CFDB006FDF0D /* AppDelegate.swift */,
 				42465E2926D1CFDB006FDF0D /* SceneDelegate.swift */,
 				42465E2B26D1CFDB006FDF0D /* ViewController.swift */,
+				42CEDA0926D92E4000FD3BDC /* FontTableViewController.swift */,
 				42465E3B26D2E9B5006FDF0D /* Meme.swift */,
 				42465E2D26D1CFDB006FDF0D /* Main.storyboard */,
 				42465E3026D1CFDD006FDF0D /* Assets.xcassets */,
+				42CEDA1526D9504500FD3BDC /* Fonts */,
 				42465E3226D1CFDD006FDF0D /* LaunchScreen.storyboard */,
 				42465E3526D1CFDD006FDF0D /* Info.plist */,
 			);
 			path = MemeMeWarmUp;
+			sourceTree = "<group>";
+		};
+		42CEDA1526D9504500FD3BDC /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				42CEDA0B26D94FD600FD3BDC /* AmericanTypewriter.ttc */,
+				42CEDA0D26D94FEE00FD3BDC /* Arial Narrow Bold.ttf */,
+				42CEDA0F26D9501200FD3BDC /* Chalkboard.ttc */,
+				42CEDA1126D9501D00FD3BDC /* Futura.ttc */,
+				42CEDA1326D9503000FD3BDC /* Hoefler Text.ttc */,
+				42465E3D26D3F9E1006FDF0D /* Impact.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +156,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42CEDA1426D9503000FD3BDC /* Hoefler Text.ttc in Resources */,
+				42CEDA0E26D94FEE00FD3BDC /* Arial Narrow Bold.ttf in Resources */,
+				42CEDA0C26D94FD600FD3BDC /* AmericanTypewriter.ttc in Resources */,
+				42CEDA1226D9501D00FD3BDC /* Futura.ttc in Resources */,
+				42465E3E26D3F9E1006FDF0D /* Impact.ttf in Resources */,
 				42465E3426D1CFDD006FDF0D /* LaunchScreen.storyboard in Resources */,
+				42CEDA1026D9501200FD3BDC /* Chalkboard.ttc in Resources */,
 				42465E3126D1CFDD006FDF0D /* Assets.xcassets in Resources */,
 				42465E2F26D1CFDB006FDF0D /* Main.storyboard in Resources */,
 			);
@@ -143,6 +178,7 @@
 				42465E2C26D1CFDB006FDF0D /* ViewController.swift in Sources */,
 				42465E3C26D2E9B5006FDF0D /* Meme.swift in Sources */,
 				42465E2826D1CFDB006FDF0D /* AppDelegate.swift in Sources */,
+				42CEDA0A26D92E4000FD3BDC /* FontTableViewController.swift in Sources */,
 				42465E2A26D1CFDB006FDF0D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
