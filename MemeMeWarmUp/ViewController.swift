@@ -25,16 +25,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             activityButton.isEnabled = false
         }
     }
-    @IBOutlet weak var coverImage: UIImageView!
     
     var shouldMoveViewForTextField = false
-    
-    var memeTextAttributes: [NSMutableAttributedString.Key : Any] = [
-        NSAttributedString.Key.font : UIFont(name: "Impact", size: 30)!,
-        NSAttributedString.Key.foregroundColor : UIColor.white,
-        NSAttributedString.Key.strokeColor : UIColor.black,
-        NSAttributedString.Key.strokeWidth : -2.0
-    ]
     
     // MARK: - View Methods
     
@@ -46,13 +38,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         upperText.text = "Welcome to MemeMe"
         lowerText.text = "Dont get any funny ideas!"
         
-        configureTextField()
-        view.sendSubviewToBack(coverImage)
+        configureTextField(fontName: "Impact")
         view.sendSubviewToBack(imageViewContainer)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
+        //Show availalbe font names
 //        for family in UIFont.familyNames {
 //
 //            let sName: String = family as String
@@ -94,7 +86,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if let image = info[.originalImage] as? UIImage {
             imagePickerView.image = image
             activityButton.isEnabled = true
-            coverImage.isHidden = true
             upperText.text = "click to edit"
             lowerText.text = "click to edit"
         }
@@ -105,6 +96,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
+//    Works equally well:
 //    @IBAction func scaleImage(_ sender: UIPinchGestureRecognizer) {
 //        imagePickerView.image.transform = CGAffineTransform(scaleX: sender.scale, y: sender.scale)
 //    }
@@ -138,7 +130,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //MARK: - Textfield Methods
     
-    func configureTextField() {
+    func configureTextField(fontName: String) {
+        
+        let shadow = NSShadow()
+        shadow.shadowColor = UIColor.white
+        shadow.shadowBlurRadius = 10
+        
+        let memeTextAttributes: [NSMutableAttributedString.Key : Any] = [
+            .font : UIFont(name: fontName, size: 30)!,
+            .foregroundColor : UIColor.white,
+            .shadow : shadow,
+            .strokeColor : UIColor.black,
+            .strokeWidth : -2.0
+        ]
+        
         upperText.defaultTextAttributes = memeTextAttributes
         lowerText.defaultTextAttributes = memeTextAttributes
         
@@ -158,7 +163,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print("Text Field begin editing")
         textField.text = ""
-        
+        activityButton.isEnabled = true
         shouldMoveViewForTextField = textField == lowerText ? true : false
     }
     
@@ -209,7 +214,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func save() {
         let memedImage = generateMemedImage()
-        let meme = Meme(upperText: upperText.text!, lowerText: lowerText.text!, image: imagePickerView.image!, memedImage: memedImage)
+        let _ = Meme(upperText: upperText.text!, lowerText: lowerText.text!, image: imagePickerView.image!, memedImage: memedImage)
     }
     
     func generateMemedImage() -> UIImage {
@@ -254,15 +259,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func getFont(font: String) {
-        print("This font =", font)
-        memeTextAttributes = [
-            NSAttributedString.Key.font : UIFont(name: font, size: 30)!,
-            NSAttributedString.Key.foregroundColor : UIColor.white,
-            NSAttributedString.Key.strokeColor : UIColor.black,
-            NSAttributedString.Key.strokeWidth : -2.0
-        ]
-        configureTextField()
+        let myShadow = NSShadow()
+        myShadow.shadowBlurRadius = 100
+        myShadow.shadowOffset = CGSize(width: 10, height: 10)
+        myShadow.shadowColor = UIColor.black
+        
+        configureTextField(fontName: font)
     }
-    
-    
+
 }

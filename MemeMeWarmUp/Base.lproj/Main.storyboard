@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_7" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,11 +13,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMeWarmUp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="xR9-J3-IEF">
-                                <rect key="frame" x="0.0" y="843" width="428" height="49"/>
+                                <rect key="frame" x="0.0" y="729" width="375" height="49"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="1Dv-Hp-AiV"/>
                                     <barButtonItem title="Album" id="hac-KD-Utq">
@@ -34,21 +34,21 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="dMW-bW-kSC"/>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="UPPER TEXT" borderStyle="roundedRect" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ch8-Be-mue">
-                                <rect key="frame" x="20" y="120" width="388" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="UPPER TEXT" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ch8-Be-mue">
+                                <rect key="frame" x="20" y="120" width="335" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" red="0.97647058959999999" green="0.36078432199999999" blue="0.2352941036" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="LOWER TEXT" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q0w-zT-1Su">
-                                <rect key="frame" x="25" y="772" width="378" height="34"/>
+                                <rect key="frame" x="25" y="658" width="325" height="34"/>
                                 <color key="textColor" red="0.97647058959999999" green="0.36078432199999999" blue="0.2352941036" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="waS-lE-IQz">
-                                <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="Meme Editor" id="Tft-yB-AWp">
                                         <barButtonItem key="leftBarButtonItem" title="Font" id="vrs-SL-5U4">
@@ -65,20 +65,15 @@
                                 </items>
                             </navigationBar>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcY-Vy-xqh">
-                                <rect key="frame" x="10" y="99" width="408" height="734"/>
+                                <rect key="frame" x="10" y="99" width="355" height="620"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S8D-gd-G7j">
-                                        <rect key="frame" x="0.0" y="0.0" width="408" height="734"/>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cover4" translatesAutoresizingMaskIntoConstraints="NO" id="S8D-gd-G7j">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="620"/>
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="Eej-FU-AjY" appends="YES" id="BXE-K1-7on"/>
                                             <outletCollection property="gestureRecognizers" destination="bDE-gr-LpK" appends="YES" id="5s7-IF-3F6"/>
                                         </connections>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" fixedFrame="YES" image="cover4" translatesAutoresizingMaskIntoConstraints="NO" id="ei7-ck-CXY">
-                                        <rect key="frame" x="0.0" y="-1" width="408" height="735"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.84547026739999998" green="0.30943430859999999" blue="0.19492789229999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -115,7 +110,6 @@
                     <connections>
                         <outlet property="activityButton" destination="7jd-6u-d6O" id="C6h-3m-otZ"/>
                         <outlet property="cameraButton" destination="EGs-Hl-LXl" id="uWM-cO-1nM"/>
-                        <outlet property="coverImage" destination="ei7-ck-CXY" id="6GO-lr-hOr"/>
                         <outlet property="imagePickerView" destination="S8D-gd-G7j" id="5WV-ev-LFt"/>
                         <outlet property="imageViewContainer" destination="hcY-Vy-xqh" id="dou-9m-caE"/>
                         <outlet property="lowerText" destination="Q0w-zT-1Su" id="e6o-uV-eZI"/>
@@ -143,15 +137,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="fontTableID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="T1g-0W-9ih" customClass="FontTableViewController" customModule="MemeMeWarmUp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fuu-Rf-n3u">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellID" id="FhL-T6-qen">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="375" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FhL-T6-qen" id="hD1-YK-o5Z">
-                                    <rect key="frame" x="0.0" y="0.0" width="428" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
