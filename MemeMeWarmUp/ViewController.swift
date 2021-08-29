@@ -26,7 +26,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    var shouldMoveViewForTextField = false
     
     // MARK: - View Methods
     
@@ -38,47 +37,32 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         upperText.text = "Welcome to MemeMe"
         lowerText.text = "Dont get any funny ideas!"
         
-        configureTextField(fontName: "Impact")
+        configureTextField(textField: upperText, fontName: "Impact")
+        configureTextField(textField: lowerText, fontName: "Impact")
         view.sendSubviewToBack(imageViewContainer)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        
-        //Show availalbe font names
-//        for family in UIFont.familyNames {
-//
-//            let sName: String = family as String
-//            print("family: \(sName)")
-//                    
-//            for name in UIFont.fontNames(forFamilyName: sName) {
-//                print("name: \(name as String)")
-//            }
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        subscribeToKeyboardNotifications()
-        subscribeToKeyboardWillHideNotification()
+        subscribeToKeyboardHideAndShowNotifications()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        unsubscribeFromKeyboardNotifications()
+        unsubscribeFromKeyboardHideAndShowNotifications()
     }
     
     // MARK: - Image Methods
     
-    @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
+    @IBAction func pickImage(_ sender: UIBarButtonItem) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    @IBAction func pickedAnImageFromCamera(_ sender: UIBarButtonItem) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
+        if sender.title != "Album" {
+            imagePicker.sourceType = .camera
+        }
         present(imagePicker, animated: true, completion: nil)
     }
     
@@ -96,10 +80,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
-//    Works equally well:
-//    @IBAction func scaleImage(_ sender: UIPinchGestureRecognizer) {
-//        imagePickerView.image.transform = CGAffineTransform(scaleX: sender.scale, y: sender.scale)
-//    }
+    //These methods allow image to be zoomed in and out and panned
     
     @IBAction func handlePinch(_ gesture: UIPinchGestureRecognizer) {
         guard let gestureView = gesture.view else {
@@ -130,7 +111,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //MARK: - Textfield Methods
     
-    func configureTextField(fontName: String) {
+    func configureTextField(textField: UITextField, fontName: String) {
         
         let shadow = NSShadow()
         shadow.shadowColor = UIColor.white
@@ -144,27 +125,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             .strokeWidth : -2.0
         ]
         
-        upperText.defaultTextAttributes = memeTextAttributes
-        lowerText.defaultTextAttributes = memeTextAttributes
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .center
+        textField.backgroundColor = .clear
+        textField.borderStyle = .none
         
-        upperText.textAlignment = .center
-        lowerText.textAlignment = .center
-        
-        lowerText.backgroundColor = .clear
-        upperText.backgroundColor = .clear
-        
-        upperText.borderStyle = .none
-        lowerText.borderStyle = .none
-        
-        view.bringSubviewToFront(upperText)
-        view.bringSubviewToFront(lowerText)
+        view.bringSubviewToFront(textField)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print("Text Field begin editing")
         textField.text = ""
         activityButton.isEnabled = true
-        shouldMoveViewForTextField = textField == lowerText ? true : false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -178,24 +150,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK:- Keyboard Notification Section
     
-    func subscribeToKeyboardNotifications() {
+    func subscribeToKeyboardHideAndShowNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
-    
-    func subscribeToKeyboardWillHideNotification() {
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func unsubscribeFromKeyboardNotifications() {
+    func unsubscribeFromKeyboardHideAndShowNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
-    
-    func unsubscribeFromHideKeyboardNotification() {
+        
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        if shouldMoveViewForTextField == true {
+        if lowerText.isFirstResponder == true {
             view.frame.origin.y -= getKeyboardHeight(notification)
         }
     }
@@ -210,6 +178,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return keyboardSize.cgRectValue.height
     }
     
+    func toggleTopAndBottomBars() {
+        toolBar.isHidden = !toolBar.isHidden
+        navigationBar.isHidden = !navigationBar.isHidden
+    }
+    
     // MARK: - MemeMe Methods
     
     func save() {
@@ -219,16 +192,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func generateMemedImage() -> UIImage {
         
-        toolBar.isHidden = true
-        navigationBar.isHidden = true
+        toggleTopAndBottomBars()
         
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        toolBar.isHidden = false
-        navigationBar.isHidden = false
+        toggleTopAndBottomBars()
         
         return memedImage
     }
@@ -247,6 +218,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: - Font Methods
+    // This method launches the Font menu so that users may select a different font.
     
     @IBAction func fontButton(_ sender: UIBarButtonItem) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -258,13 +230,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         present(vc, animated: true, completion: nil)
     }
     
+    // Uses the FontProtocal defined in the FontTableViewController to pass the selected font name back to this controller
     func getFont(font: String) {
         let myShadow = NSShadow()
         myShadow.shadowBlurRadius = 100
         myShadow.shadowOffset = CGSize(width: 10, height: 10)
         myShadow.shadowColor = UIColor.black
         
-        configureTextField(fontName: font)
+        configureTextField(textField: upperText, fontName: font)
+        configureTextField(textField: lowerText, fontName: font)
     }
 
 }

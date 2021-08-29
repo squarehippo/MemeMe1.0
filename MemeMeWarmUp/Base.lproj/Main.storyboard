@@ -22,13 +22,13 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="1Dv-Hp-AiV"/>
                                     <barButtonItem title="Album" id="hac-KD-Utq">
                                         <connections>
-                                            <action selector="pickAnImage:" destination="BYZ-38-t0r" id="B9J-53-Fy1"/>
+                                            <action selector="pickImage:" destination="BYZ-38-t0r" id="1xk-uK-ElI"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="qvT-GN-XlR"/>
                                     <barButtonItem systemItem="camera" id="EGs-Hl-LXl">
                                         <connections>
-                                            <action selector="pickedAnImageFromCamera:" destination="BYZ-38-t0r" id="aWd-qE-Pi1"/>
+                                            <action selector="pickImage:" destination="BYZ-38-t0r" id="TBC-nt-HUK"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="dMW-bW-kSC"/>
@@ -67,7 +67,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcY-Vy-xqh">
                                 <rect key="frame" x="10" y="99" width="355" height="620"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cover4" translatesAutoresizingMaskIntoConstraints="NO" id="S8D-gd-G7j">
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cover4" translatesAutoresizingMaskIntoConstraints="NO" id="S8D-gd-G7j">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="620"/>
                                         <gestureRecognizers/>
                                         <connections>
