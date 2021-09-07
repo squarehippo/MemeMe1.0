@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  MemeMeWarmUp
 //
 //  Created by Brian Wilson on 8/21/21.
@@ -8,10 +8,9 @@
 import Foundation
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIToolbarDelegate, FontProtocol {
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIToolbarDelegate, FontProtocol {
     
     // MARK: - Varibles
-
     
     @IBOutlet weak var imageViewContainer: UIView!
     @IBOutlet weak var imagePickerView: UIImageView!
@@ -26,14 +25,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    //Used to run .reloadData when this VC is dismissed.
+    var dismissHandler: (() -> Void)!
+    
     
     // MARK: - View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        upperText.delegate = self
-        lowerText.delegate = self
-        
+     
         upperText.text = "Welcome to MemeMe"
         lowerText.text = "Dont get any funny ideas!"
         
@@ -52,6 +52,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         unsubscribeFromKeyboardHideAndShowNotifications()
     }
     
@@ -80,8 +81,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
-    //These methods allow image to be zoomed in and out and panned
-    
+    //These methods allow the selected image to be zoomed in and out and/or panned in any direction
     @IBAction func handlePinch(_ gesture: UIPinchGestureRecognizer) {
         guard let gestureView = gesture.view else {
           return
@@ -104,7 +104,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         x: gestureView.center.x + translation.x,
         y: gestureView.center.y + translation.y
       )
-      
       gesture.setTranslation(.zero, in: view)
     }
     
@@ -125,6 +124,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             .strokeWidth : -2.0
         ]
         
+        textField.delegate = self
         textField.defaultTextAttributes = memeTextAttributes
         textField.textAlignment = .center
         textField.backgroundColor = .clear
@@ -187,18 +187,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func save() {
         let memedImage = generateMemedImage()
-        let _ = Meme(upperText: upperText.text!, lowerText: lowerText.text!, image: imagePickerView.image!, memedImage: memedImage)
+        let meme = Meme(upperText: upperText.text!, lowerText: lowerText.text!, image: imagePickerView.image!, memedImage: memedImage)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.memes.append(meme)
+        dismiss(animated: true, completion: self.dismissHandler)
     }
     
     func generateMemedImage() -> UIImage {
-        
         toggleTopAndBottomBars()
-        
-        UIGraphicsBeginImageContext(self.view.frame.size)
+        //Uses UIGraphicsBeginImageContextWithOptions to get better image quality
+        UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 8)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        
         toggleTopAndBottomBars()
         
         return memedImage
@@ -216,6 +217,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         present(activityViewController, animated: true)
     }
+    
+    @IBAction func cancelButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     // MARK: - Font Methods
     // This method launches the Font menu so that users may select a different font.
