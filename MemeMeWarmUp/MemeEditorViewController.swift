@@ -225,7 +225,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     // MARK: - Font Methods
     // This method launches the Font menu so that users may select a different font.
-    
     @IBAction func fontButton(_ sender: UIBarButtonItem) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         guard let vc = storyBoard.instantiateViewController(withIdentifier: "fontTableID") as? FontTableViewController else {
